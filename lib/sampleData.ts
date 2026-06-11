@@ -165,7 +165,7 @@ export const SAMPLE_NCRS: NCR[] = [
     raisedDate: "2024-12-10", targetDate: "2024-12-18",
     status: "In Progress",
     description: "Bilge suction pipe (80NB, SCH40) found with wall thickness 4.1mm at Fr.20 elbow; minimum required per IRS is 5.0mm (corrosion allowance included). Thickness measured by calibrated UT gauge at 8 points around elbow. Risk of failure during ballast voyage in bar-crossing conditions.",
-    rootCause: "Material",
+    rootCause: "Material Defect",
     department: "Outfitting",
     raisedBy: "Shri. Rajendra Naik — Marine Inspector",
     responsible: "Shri. Anand Sawant — Manager, Pipe Outfitting",
