@@ -32,7 +32,7 @@ export default function Sidebar() {
       }}>
         <div style={{
           width: 34, height: 34, borderRadius: 8, flexShrink: 0,
-          background: "linear-gradient(135deg, #0f9b0f, #000000)",
+          background: "linear-gradient(135deg, #0A9696, #0DC8C8)",
           display: "flex", alignItems: "center", justifyContent: "center",
         }}>
           <Shield size={18} color="#e8f5e8" />
@@ -53,9 +53,9 @@ export default function Sidebar() {
               style={{
                 display: "flex", alignItems: "center", gap: 10,
                 padding: "8px 10px", borderRadius: "var(--radius-sm)",
-                color: active ? "var(--green-bright)" : "var(--text-secondary)",
-                background: active ? "rgba(15,155,15,0.15)" : "transparent",
-                border: active ? "1px solid rgba(15,155,15,0.25)" : "1px solid transparent",
+                color: active ? "var(--teal-bright)" : "var(--text-secondary)",
+                background: active ? "rgba(10,150,150,0.15)" : "transparent",
+                border: active ? "1px solid rgba(10,150,150,0.25)" : "1px solid transparent",
                 fontSize: 12, fontWeight: active ? 600 : 400,
                 textDecoration: "none", transition: "all 0.15s",
               }}
@@ -81,7 +81,7 @@ export default function Sidebar() {
         </div>
         <div style={{ fontSize: 9, color: "var(--text-muted)", letterSpacing: ".04em", lineHeight: 1.5 }}>
           Built by{" "}
-          <span style={{ background: "linear-gradient(90deg,#0f9b0f,#18d418)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 700 }}>
+          <span style={{ background: "linear-gradient(90deg,#0A9696,#0DC8C8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 700 }}>
             Suji Kumar
           </span>
         </div>
@@ -105,7 +105,7 @@ export default function Sidebar() {
         padding: "10px 16px", alignItems: "center", justifyContent: "space-between",
       }} className="mobile-bar">
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <Shield size={18} color="var(--green-bright)" />
+          <Shield size={18} color="var(--teal-bright)" />
           <span style={{ fontWeight: 700, fontSize: 14, color: "var(--text-primary)" }}>ShipTrace</span>
         </div>
         <button onClick={() => setMobileOpen(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-primary)" }}>
