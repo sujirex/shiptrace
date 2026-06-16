@@ -65,7 +65,7 @@
 html {
   background: var(--bg-base);
   color: var(--text-primary);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -158,7 +158,7 @@ a:hover { color: var(--teal); }
 .btn {
   display: inline-flex; align-items: center; gap: 6px;
   border: none; border-radius: var(--radius-sm);
-  cursor: pointer; font-size: 12px; font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer; font-size: 12px; font-family: 'Roboto', sans-serif;
   padding: 7px 14px; font-weight: 600; transition: all 0.2s;
 }
 .btn-primary {
@@ -196,7 +196,7 @@ a:hover { color: var(--teal); }
   border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 7px 10px;
   outline: none;
   transition: border-color 0.2s;
@@ -251,11 +251,4 @@ label.form-label {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--teal); }
-
-/* ── Mobile ── */
-@media (max-width: 768px) {
-  .sidebar { width: 100%; min-height: unset; position: static; flex-direction: row; flex-wrap: wrap; }
-  .main-content { margin-left: 0; padding: 16px; }
-  :root { --sidebar-w: 0px; }
-}
+::-webkit-scrollbar-thumb:hover { background: var(
