@@ -66,7 +66,7 @@ html {
   background: var(--bg-base);
   color: var(--text-primary);
   font-family: 'Roboto', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -251,4 +251,4 @@ label.form-label {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(
+::-webkit-scrollbar-thumb:hover { background: var(--teal); }
