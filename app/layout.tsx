@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar"
 export const metadata: Metadata = {
   title: { default: "ShipTrace", template: "%s — ShipTrace" },
   description: "NCR & Defect Intelligence Platform for shipyards. Self-hosted.",
+  authors: [{ name: "Suji Kumar C", url: "https://sujikumar.com" }],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

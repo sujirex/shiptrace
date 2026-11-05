@@ -81,9 +81,7 @@ export default function Sidebar() {
         </div>
         <div style={{ fontSize: 9, color: "var(--text-muted)", letterSpacing: ".04em", lineHeight: 1.5 }}>
           Built by{" "}
-          <span style={{ background: "linear-gradient(90deg,#0A9696,#0DC8C8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 700 }}>
-            Suji Kumar
-          </span>
+          <a href="https://sujikumar.com/" rel="author" title="Built by Suji Kumar C — Digital Maritime Engineer" style={{ textDecoration: "none" }}><span style={{ background: "linear-gradient(90deg,#0A9696,#0DC8C8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 700 }}>Suji Kumar C</span></a>
         </div>
       </div>
     </>
