@@ -3,7 +3,7 @@ import { useMemo, useState } from "react"
 import { useData } from "../../context/DataContext"
 import { useSettings } from "../../context/SettingsContext"
 import { NCR, NCRStatus, Severity } from "../../lib/types"
-import { Plus, Search, Download, Trash2, Check, X, ChevronDown, ChevronUp } from "lucide-react"
+import { Plus, Search, Download, Trash2, Check, X, ChevronDown, ChevronUp, Ruler, BookOpen } from "lucide-react"
 import Link from "next/link"
 
 const ALL = "All"
@@ -172,7 +172,7 @@ export default function NCRLogPage() {
                     <td style={{ fontSize: 11, maxWidth: 110, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={n.assignedTo}>{n.assignedTo.split("—")[0].trim()}</td>
                     <td style={{ fontSize: 11, maxWidth: 110, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={n.followedBy}>{n.followedBy.split("—")[0].trim()}</td>
                     <td style={{ fontSize: 11 }}>
-                      <span style={{ fontSize: 10, padding: "2px 6px", borderRadius: 99, background: "rgba(15,155,15,.12)", color: "var(--green)", border: "1px solid rgba(15,155,15,.2)" }}>{n.classSociety}</span>
+                      <span style={{ fontSize: 10, padding: "2px 6px", borderRadius: 99, background: "color-mix(in srgb, var(--g3) 10%, transparent)", color: "var(--green)", border: "1px solid color-mix(in srgb, var(--g3) 28%, transparent)" }}>{n.classSociety}</span>
                     </td>
                     <td style={{ fontSize: 11, whiteSpace: "nowrap" }}>{n.raisedDate}</td>
                     <td style={{ fontSize: 11, whiteSpace: "nowrap", color: new Date(n.targetDate) < new Date() && n.status !== "Closed" ? "var(--status-overdue)" : "inherit" }}>{n.targetDate}</td>
@@ -200,11 +200,11 @@ export default function NCRLogPage() {
                   {expanded === n.id && (
                     <tr key={`${n.id}-detail`}>
                       <td colSpan={18} style={{ background: "var(--bg-raised)", padding: "14px 20px" }}>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, fontSize: 12 }}>
+                        <div className="grid-3" style={{ gap: 16, fontSize: 12 }}>
                           <div>
                             <div style={{ color: "var(--text-muted)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".05em", marginBottom: 4 }}>Defect Description</div>
                             <p style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>{n.description}</p>
-                            {n.drawingRef && <p style={{ color: "var(--text-muted)", marginTop: 4, fontSize: 11 }}>📐 {n.drawingRef}</p>}
+                            {n.drawingRef && <p style={{ color: "var(--text-muted)", marginTop: 4, fontSize: 11 }}><Ruler size={12} className="ic" /> {n.drawingRef}</p>}
                             {n.imoNumber && <p style={{ color: "var(--text-muted)", marginTop: 2, fontSize: 11 }}>IMO: {n.imoNumber}</p>}
                             {n.classRef && <p style={{ color: "var(--green)", marginTop: 2, fontSize: 11 }}>Class Ref: {n.classRef}</p>}
                           </div>
@@ -223,7 +223,7 @@ export default function NCRLogPage() {
                           <div>
                             {n.lessonLearned ? (
                               <>
-                                <div style={{ color: "var(--green)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".05em", marginBottom: 4 }}>📚 Lesson Learned</div>
+                                <div style={{ color: "var(--green)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".05em", marginBottom: 4 }}><BookOpen size={12} className="ic" /> Lesson Learned</div>
                                 <p style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>{n.lessonLearned}</p>
                               </>
                             ) : (
@@ -243,7 +243,7 @@ export default function NCRLogPage() {
 
       {/* Close NCR modal */}
       {closing && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+        <div style={{ position: "fixed", inset: 0, background: "rgba(7,8,13,.55)", backdropFilter: "blur(4px)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
           <div className="card" style={{ width: "100%", maxWidth: 560, padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <h2 style={{ fontSize: 15 }}>Close NCR — {closing.id}</h2>

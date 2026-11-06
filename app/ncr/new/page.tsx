@@ -4,7 +4,7 @@ import { useData } from "../../../context/DataContext"
 import { useSettings } from "../../../context/SettingsContext"
 import { NCR, DefectType, Severity, RootCause, ClassSociety, Currency } from "../../../lib/types"
 import { useRouter } from "next/navigation"
-import { Save, ArrowLeft } from "lucide-react"
+import { Save, ArrowLeft, Lightbulb } from "lucide-react"
 import Link from "next/link"
 
 const DEPARTMENTS = ["Hull Structure","Outfitting","Piping","Electrical","Painting & Blasting","Machinery","QA/QC","Production Planning","Safety","Design","Procurement","Sub-contractor","Other"]
@@ -90,7 +90,7 @@ export default function NewNCRPage() {
 
   const sectionHead = (title: string) => (
     <div style={{ gridColumn: "1 / -1", borderBottom: "1px solid var(--border)", paddingBottom: 6, marginBottom: 2 }}>
-      <h4 style={{ fontSize: 12, color: "var(--green)", textTransform: "uppercase", letterSpacing: ".06em" }}>{title}</h4>
+      <h4 style={{ fontSize: 12, color: "var(--g3)", fontFamily: "var(--mono)", textTransform: "uppercase", letterSpacing: ".06em" }}>{title}</h4>
     </div>
   )
 
@@ -108,17 +108,17 @@ export default function NewNCRPage() {
       </div>
 
       {err && (
-        <div style={{ background: "var(--status-overdue-bg)", border: "1px solid rgba(239,68,68,.4)", borderRadius: "var(--radius-sm)", padding: "9px 14px", marginBottom: 16, color: "var(--status-overdue)", fontSize: 12 }}>{err}</div>
+        <div style={{ background: "var(--status-overdue-bg)", border: "1px solid color-mix(in srgb, var(--t-danger) 4%, transparent)", borderRadius: "var(--radius-sm)", padding: "9px 14px", marginBottom: 16, color: "var(--status-overdue)", fontSize: 12 }}>{err}</div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div className="grid-2" style={{ gap: 16 }}>
 
         {/* LEFT */}
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
           {/* Vessel & Yard */}
           <div className="card">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="pair" style={{ gap: 12 }}>
               {sectionHead("Vessel & Shipyard")}
               {F("Vessel Name / Yard No.", "vessel", "text", true, "e.g. MT Kalpana (Yard No. 445)")}
               {F("Shipyard", "yard", "text", true, "e.g. L&T Shipbuilding, Kattupalli")}
@@ -128,7 +128,7 @@ export default function NewNCRPage() {
 
           {/* Location */}
           <div className="card">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="pair" style={{ gap: 12 }}>
               {sectionHead("Location & Drawing Reference")}
               {F("Location / Block / Frame", "location", "text", true, "e.g. Block P-14 / Fr.112–118")}
               {F("Drawing / Doc Ref.", "drawingRef", "text", false, "e.g. CSL-STR-3001-014 Rev.2")}
@@ -137,7 +137,7 @@ export default function NewNCRPage() {
 
           {/* Classification */}
           <div className="card">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="pair" style={{ gap: 12 }}>
               {sectionHead("Defect Classification")}
               {S("Defect Type", "defectType", ["Weld Defect","Structural","Hull Plate","Piping","Painting","Outfit","Electrical","Machinery","Other"], true)}
               {S("Severity", "severity", ["Critical","Major","Minor"], true)}
@@ -148,7 +148,7 @@ export default function NewNCRPage() {
 
           {/* Class Society */}
           <div className="card">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="pair" style={{ gap: 12 }}>
               {sectionHead("Classification Society")}
               {S("Class Society", "classSociety", CLASS_SOCIETIES)}
               {F("Class / Survey Reference No.", "classRef", "text", false, "e.g. IRS/CSL/2024/NCR/0118")}
@@ -157,7 +157,7 @@ export default function NewNCRPage() {
 
           {/* Cost & Timeline */}
           <div className="card">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="pair" style={{ gap: 12 }}>
               {sectionHead("Timeline & Cost")}
               {F("Target Close Date", "targetDate", "date", true)}
               <div>
@@ -179,7 +179,7 @@ export default function NewNCRPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {sectionHead("Responsibility Chain")}
 
-              <div style={{ background: "rgba(15,155,15,.05)", borderRadius: "var(--radius-sm)", padding: "10px 12px", fontSize: 11, color: "var(--text-muted)", lineHeight: 1.7 }}>
+              <div style={{ background: "color-mix(in srgb, var(--g3) 6%, var(--inset))", borderRadius: "var(--radius-sm)", padding: "10px 12px", fontSize: 11, color: "var(--text-muted)", lineHeight: 1.7 }}>
                 Indian shipyard NCR flow: <strong style={{ color: "var(--text-secondary)" }}>Raised By</strong> → <strong style={{ color: "var(--text-secondary)" }}>Responsible HOD</strong> → <strong style={{ color: "var(--text-secondary)" }}>Authorized By</strong> (QA Mgr) → <strong style={{ color: "var(--text-secondary)" }}>Assigned To</strong> (Foreman) → <strong style={{ color: "var(--text-secondary)" }}>Followed By</strong> (QA Eng) → <strong style={{ color: "var(--text-secondary)" }}>Reviewed By</strong> (Surveyor)
               </div>
 
@@ -209,9 +209,9 @@ export default function NewNCRPage() {
           </div>
 
           {/* Info */}
-          <div className="card" style={{ background: "rgba(15,155,15,.05)", borderColor: "rgba(15,155,15,.2)" }}>
+          <div className="card tint-ok">
             <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.7 }}>
-              💡 When you <strong style={{ color: "var(--green-bright)" }}>close</strong> this NCR, you will be prompted for final corrective action and a <strong style={{ color: "var(--green-bright)" }}>Lesson Learned</strong> — this feeds the knowledge base and pattern detection engine automatically.
+              <Lightbulb size={13} className="ic" color="var(--t-warn)" /> When you <strong style={{ color: "var(--green-bright)" }}>close</strong> this NCR, you will be prompted for final corrective action and a <strong style={{ color: "var(--green-bright)" }}>Lesson Learned</strong> — this feeds the knowledge base and pattern detection engine automatically.
             </p>
           </div>
         </div>

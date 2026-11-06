@@ -33,7 +33,7 @@ export default function PredictivePage() {
   const low    = scored.filter(e => e.level === "Low")
 
   function riskColor(level: string) {
-    return level === "High" ? "#ef4444" : level === "Medium" ? "#f59e0b" : "#22c55e"
+    return level === "High" ? "var(--t-danger)" : level === "Medium" ? "var(--t-warn)" : "var(--ok)"
   }
 
   function riskBadgeClass(level: string) {
@@ -54,9 +54,9 @@ export default function PredictivePage() {
       {/* Risk summary */}
       <div className="stat-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: "High Risk",   value: high.length,   icon: AlertTriangle, color: "#ef4444" },
-          { label: "Medium Risk", value: medium.length, icon: Clock,         color: "#f59e0b" },
-          { label: "Low Risk",    value: low.length,    icon: CheckCircle,   color: "#22c55e" },
+          { label: "High Risk",   value: high.length,   icon: AlertTriangle, color: "var(--t-danger)" },
+          { label: "Medium Risk", value: medium.length, icon: Clock,         color: "var(--t-warn)" },
+          { label: "Low Risk",    value: low.length,    icon: CheckCircle,   color: "var(--ok)" },
           { label: "Total Equipment", value: equipment.length, icon: Wrench, color: "var(--green-bright)" },
         ].map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="stat-card">
@@ -71,10 +71,10 @@ export default function PredictivePage() {
 
       {/* High risk alert */}
       {high.length > 0 && (
-        <div className="card" style={{ marginBottom: 18, background: "rgba(239,68,68,.06)", borderColor: "rgba(239,68,68,.3)" }}>
+        <div className="card tint-danger" style={{ marginBottom: 18 }}>
           <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10 }}>
-            <AlertTriangle size={15} color="#ef4444" />
-            <span style={{ fontWeight: 600, fontSize: 13, color: "#ef4444" }}>
+            <AlertTriangle size={15} color="var(--t-danger)" />
+            <span style={{ fontWeight: 600, fontSize: 13, color: "var(--t-danger)" }}>
               {high.length} equipment item{high.length > 1 ? "s" : ""} at HIGH risk — action required
             </span>
           </div>
@@ -122,7 +122,7 @@ export default function PredictivePage() {
                   <td style={{ fontSize: 11 }}>{eq.system}</td>
                   <td style={{ fontSize: 11 }}>{eq.lastServiceDate}</td>
                   <td style={{ fontSize: 11, color: eq.days <= 30 ? riskColor(eq.level) : "inherit" }}>{eq.nextServiceDate}</td>
-                  <td style={{ textAlign: "right", fontWeight: 700, fontSize: 11, color: eq.days <= 0 ? "#ef4444" : eq.days <= 30 ? "#f59e0b" : "var(--text-secondary)" }}>
+                  <td style={{ textAlign: "right", fontWeight: 700, fontSize: 11, color: eq.days <= 0 ? "var(--t-danger)" : eq.days <= 30 ? "var(--t-warn)" : "var(--text-secondary)" }}>
                     {eq.days <= 0 ? `${Math.abs(eq.days)}d OD` : `${eq.days}d`}
                   </td>
                   <td style={{ textAlign: "right", fontSize: 11 }}>{eq.failCount}</td>
@@ -169,7 +169,7 @@ export default function PredictivePage() {
                     <td style={{ fontSize: 11 }}>{eq.vessel}</td>
                     <td style={{ fontSize: 11 }}>{f.date}</td>
                     <td style={{ fontSize: 11 }}>{f.description}</td>
-                    <td style={{ textAlign: "right", fontSize: 11, color: "#f59e0b" }}>{f.downtime}</td>
+                    <td style={{ textAlign: "right", fontSize: 11, color: "var(--t-warn)" }}>{f.downtime}</td>
                     <td style={{ textAlign: "right", fontFamily: "Courier New,monospace", fontSize: 11 }}>{f.cost.toLocaleString()}</td>
                   </tr>
                 ))
@@ -179,7 +179,7 @@ export default function PredictivePage() {
         </div>
       </div>
 
-      <div className="card" style={{ marginTop: 14, background: "rgba(15,155,15,.04)" }}>
+      <div className="card tint-ok" style={{ marginTop: 14 }}>
         <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
           <Activity size={14} color="var(--green-bright)" style={{ flexShrink: 0, marginTop: 2 }} />
           <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6 }}>

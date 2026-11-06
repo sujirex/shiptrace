@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation"
 import { useTheme } from "../context/ThemeContext"
 import {
   LayoutDashboard, ClipboardList, BarChart2, BookOpen,
-  Activity, Settings, Sun, Moon, Menu, X, Shield
+  Activity, Settings, Sun, Moon, Menu, X,
 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const navItems = [
   { href: "/",                  label: "Dashboard",            icon: LayoutDashboard },
@@ -17,119 +17,75 @@ const navItems = [
   { href: "/settings",          label: "Settings",             icon: Settings },
 ]
 
+function Brand({ onClick }: { onClick?: () => void }) {
+  return (
+    <Link href="/" className="side-brand" onClick={onClick} aria-label="ShipTrace home">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/ss-emblem.svg" alt="" width={36} height={36} />
+      <span>
+        <b>ShipTrace</b>
+        <small>NCR intelligence</small>
+      </span>
+    </Link>
+  )
+}
+
 export default function Sidebar() {
-  const pathname = usePathname()
+  const raw = usePathname()
+  const pathname = raw.length > 1 ? raw.replace(/\/$/, "") : raw
   const { theme, toggle } = useTheme()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const NavContent = () => (
-    <>
-      {/* Logo */}
-      <div style={{
-        padding: "20px 18px 16px",
-        borderBottom: "1px solid var(--border)",
-        display: "flex", alignItems: "center", gap: 10,
-      }}>
-        <div style={{
-          width: 34, height: 34, borderRadius: 8, flexShrink: 0,
-          background: "linear-gradient(135deg, #0A9696, #0DC8C8)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          <Shield size={18} color="#e8f5e8" />
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: 15, color: "var(--text-primary)", letterSpacing: ".03em" }}>ShipTrace</div>
-          <div style={{ fontSize: 10, color: "var(--text-muted)", letterSpacing: ".04em" }}>NCR INTELLIGENCE</div>
-        </div>
-      </div>
+  // Close the drawer on navigation
+  useEffect(() => { setOpen(false) }, [raw])
 
-      {/* Nav links */}
-      <nav style={{ flex: 1, padding: "12px 10px", display: "flex", flexDirection: "column", gap: 2 }}>
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const active = pathname === href || (href !== "/" && pathname.startsWith(href))
-          return (
-            <Link key={href} href={href}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: "flex", alignItems: "center", gap: 10,
-                padding: "8px 10px", borderRadius: "var(--radius-sm)",
-                color: active ? "var(--teal-bright)" : "var(--text-secondary)",
-                background: active ? "rgba(10,150,150,0.15)" : "transparent",
-                border: active ? "1px solid rgba(10,150,150,0.25)" : "1px solid transparent",
-                fontSize: 12, fontWeight: active ? 600 : 400,
-                textDecoration: "none", transition: "all 0.15s",
-              }}
-            >
-              <Icon size={15} />
-              {label}
-            </Link>
-          )
-        })}
-      </nav>
-
-      {/* Bottom: theme + branding */}
-      <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border)" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <span style={{ fontSize: 10, color: "var(--text-muted)" }}>v0.1 · Self-Hosted</span>
-          <button onClick={toggle} style={{
-            background: "var(--bg-raised)", border: "1px solid var(--border)",
-            borderRadius: "var(--radius-sm)", padding: "5px 8px", cursor: "pointer",
-            color: "var(--text-secondary)", display: "flex", alignItems: "center",
-          }}>
-            {theme === "dark" ? <Sun size={13} /> : <Moon size={13} />}
-          </button>
-        </div>
-        <div style={{ fontSize: 9, color: "var(--text-muted)", letterSpacing: ".04em", lineHeight: 1.5 }}>
-          Built by{" "}
-          <a href="https://sujikumar.com/" rel="author" title="Built by Suji Kumar C — Digital Maritime Engineer" style={{ textDecoration: "none" }}><span style={{ background: "linear-gradient(90deg,#0A9696,#0DC8C8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 700 }}>Suji Kumar C</span></a>
-        </div>
-      </div>
-    </>
+  const themeBtn = (
+    <button onClick={toggle} className="icon-btn" aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+      {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+    </button>
   )
 
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside className="sidebar" style={{ display: "flex", flexDirection: "column" }}>
-        <NavContent />
+      {/* Sidebar: fixed on desktop, slide-in drawer on mobile */}
+      <aside className={`sidebar${open ? " open" : ""}`} aria-label="Main navigation">
+        <Brand onClick={() => setOpen(false)} />
+        <nav className="side-nav">
+          {navItems.map(({ href, label, icon: Icon }) => {
+            const active = pathname === href || (href !== "/" && pathname.startsWith(href))
+            return (
+              <Link key={href} href={href} onClick={() => setOpen(false)} className={`side-link${active ? " active" : ""}`}>
+                <Icon size={15} />
+                {label}
+              </Link>
+            )
+          })}
+        </nav>
+        <div className="side-foot">
+          <div className="side-foot-row">
+            <span>v0.1 · Self-hosted</span>
+            {themeBtn}
+          </div>
+          <a className="credit" href="https://sujikumar.com/" rel="author" title="Built by Suji Kumar C — Digital Maritime Engineer">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ss-emblem.svg" alt="" width={20} height={20} />
+            <span>Built by <b>Suji Kumar C</b></span>
+          </a>
+        </div>
       </aside>
 
       {/* Mobile top bar */}
-      <div style={{
-        display: "none",
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-        background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)",
-        borderBottom: "1px solid var(--border)",
-        padding: "10px 16px", alignItems: "center", justifyContent: "space-between",
-      }} className="mobile-bar">
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <Shield size={18} color="var(--teal-bright)" />
-          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--text-primary)" }}>ShipTrace</span>
+      <div className="mobile-bar">
+        <Brand />
+        <div style={{ display: "flex", gap: 8 }}>
+          {themeBtn}
+          <button onClick={() => setOpen(v => !v)} className="icon-btn" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-        <button onClick={() => setMobileOpen(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-primary)" }}>
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </div>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div style={{
-          position: "fixed", top: 44, left: 0, right: 0, bottom: 0, zIndex: 150,
-          background: "rgba(0,0,0,0.95)", backdropFilter: "blur(8px)",
-          display: "flex", flexDirection: "column",
-          borderTop: "1px solid var(--border)",
-        }}>
-          <NavContent />
-        </div>
-      )}
-
-      <style>{`
-        @media (max-width: 768px) {
-          .sidebar { display: none !important; }
-          .mobile-bar { display: flex !important; }
-          .main-content { margin-left: 0 !important; padding-top: 60px !important; }
-        }
-      `}</style>
+      {open && <div className="drawer-backdrop" onClick={() => setOpen(false)} />}
     </>
   )
 }

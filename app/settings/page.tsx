@@ -115,7 +115,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="card" style={{ background: "rgba(15,155,15,.05)", borderColor: "rgba(15,155,15,.2)" }}>
+        <div className="card tint-ok">
           <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
             <Info size={14} color="var(--green)" style={{ flexShrink: 0, marginTop: 2 }} />
             <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.7 }}>

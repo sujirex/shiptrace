@@ -6,16 +6,13 @@ import {
   LineChart, Line, CartesianGrid, PieChart, Pie, Cell, Legend
 } from "recharts"
 
-const GREEN  = "#0f9b0f"
-const GREEN2 = "#18d418"
-const AMBER  = "#f59e0b"
-const RED    = "#ef4444"
-const BLUE   = "#3b82f6"
-
-const COLORS = [GREEN, AMBER, RED, BLUE, "#8b5cf6", "#06b6d4", "#ec4899"]
+import { useBrandColors } from "../../lib/useBrandColors"
 
 export default function AnalyticsPage() {
   const { ncrs } = useData()
+  const C = useBrandColors()
+  const GREEN = C.ok, GREEN2 = C.ok, AMBER = C["t-warn"], RED = C["t-danger"], BLUE = C.g2, VIOLET = C.g3
+  const COLORS = [VIOLET, AMBER, RED, BLUE, C.g1, C.g4, C.spark]
 
   // Pareto — defect type
   const paretoData = useMemo(() => {
@@ -101,7 +98,7 @@ export default function AnalyticsPage() {
       {/* Top KPIs */}
       <div className="stat-grid" style={{ marginBottom: 22 }}>
         {[
-          { label: "Total NCRs",       value: ncrs.length,                          color: GREEN },
+          { label: "Total NCRs",       value: ncrs.length,                          color: VIOLET },
           { label: "Close Rate",        value: `${ncrs.length > 0 ? Math.round((ncrs.filter(n=>n.status==="Closed").length/ncrs.length)*100) : 0}%`, color: GREEN2 },
           { label: "Avg Days to Close", value: `${avgClose}d`,                       color: AMBER },
           { label: "Total Rework Cost", value: `$${(totalCost/1000).toFixed(1)}k`,   color: RED },
@@ -113,17 +110,17 @@ export default function AnalyticsPage() {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
+      <div className="grid-2" style={{ gap: 18, marginBottom: 18 }}>
         {/* Pareto */}
         <div className="card">
           <h3 style={{ fontSize: 13, marginBottom: 14 }}>Defect Type Pareto</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={paretoData} margin={{ top: 0, right: 10, left: -20, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(15,155,15,.1)" />
+              <CartesianGrid strokeDasharray="3 3" stroke={C.line} />
               <XAxis dataKey="type" tick={{ fontSize: 10, fill: "var(--text-muted)" }} angle={-30} textAnchor="end" interval={0} />
               <YAxis tick={{ fontSize: 10, fill: "var(--text-muted)" }} />
               <Tooltip {...tt} />
-              <Bar dataKey="count" fill={GREEN} radius={[3,3,0,0]} />
+              <Bar dataKey="count" fill={VIOLET} radius={[3,3,0,0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -133,7 +130,7 @@ export default function AnalyticsPage() {
           <h3 style={{ fontSize: 13, marginBottom: 14 }}>Monthly Trend — Raised vs Closed</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={trendData} margin={{ top: 0, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(15,155,15,.1)" />
+              <CartesianGrid strokeDasharray="3 3" stroke={C.line} />
               <XAxis dataKey="month" tick={{ fontSize: 10, fill: "var(--text-muted)" }} />
               <YAxis tick={{ fontSize: 10, fill: "var(--text-muted)" }} />
               <Tooltip {...tt} />
@@ -145,14 +142,14 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
+      <div className="grid-2" style={{ gap: 18, marginBottom: 18 }}>
         {/* Severity pie */}
         <div className="card">
           <h3 style={{ fontSize: 13, marginBottom: 14 }}>Severity Breakdown</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie data={severityData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={75} label={({ name, percent }) => `${name} ${(percent*100).toFixed(0)}%`} labelLine={false}
-                style={{ fontSize: 10, fill: "var(--text-muted)" }}>
+                style={{ fontSize: 10 }}>
                 {severityData.map((_, i) => <Cell key={i} fill={[RED, AMBER, GREEN][i] ?? COLORS[i]} />)}
               </Pie>
               <Tooltip {...tt} />

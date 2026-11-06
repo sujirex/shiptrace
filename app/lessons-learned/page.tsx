@@ -36,7 +36,7 @@ export default function LessonsLearnedPage() {
   }, [ncrs])
 
   function sevColor(s: string) {
-    return s === "Critical" ? "#ef4444" : s === "Major" ? "#f59e0b" : "#22c55e"
+    return s === "Critical" ? "var(--t-danger)" : s === "Major" ? "var(--t-warn)" : "var(--ok)"
   }
 
   return (
@@ -52,16 +52,16 @@ export default function LessonsLearnedPage() {
 
       {/* Recurring patterns alert */}
       {patterns.length > 0 && (
-        <div className="card" style={{ marginBottom: 18, background: "rgba(245,158,11,.06)", borderColor: "rgba(245,158,11,.3)" }}>
+        <div className="card tint-warn" style={{ marginBottom: 18 }}>
           <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-            <AlertTriangle size={15} color="#f59e0b" style={{ flexShrink: 0, marginTop: 1 }} />
+            <AlertTriangle size={15} color="var(--t-warn)" style={{ flexShrink: 0, marginTop: 1 }} />
             <div>
-              <div style={{ fontWeight: 600, fontSize: 13, color: "#f59e0b", marginBottom: 6 }}>Recurring Defect Patterns Detected</div>
+              <div style={{ fontWeight: 600, fontSize: 13, color: "var(--t-warn)", marginBottom: 6 }}>Recurring Defect Patterns Detected</div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {patterns.map(([type, count]) => (
                   <span key={type} style={{
                     fontSize: 11, padding: "3px 10px", borderRadius: 99,
-                    background: "rgba(245,158,11,.15)", border: "1px solid rgba(245,158,11,.3)", color: "#f59e0b"
+                    background: "color-mix(in srgb, var(--t-warn) 15%, transparent)", border: "1px solid color-mix(in srgb, var(--t-warn) 3%, transparent)", color: "var(--t-warn)"
                   }}>
                     {type} — {count}×
                   </span>
@@ -107,7 +107,7 @@ export default function LessonsLearnedPage() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <span style={{ fontFamily: "Courier New,monospace", fontSize: 11, color: "var(--green-bright)", fontWeight: 700 }}>{n.id}</span>
                 <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{n.vessel}</span>
-                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: "rgba(15,155,15,.12)", color: "var(--green)", border: "1px solid rgba(15,155,15,.2)" }}>{n.defectType}</span>
+                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: "color-mix(in srgb, var(--g3) 10%, transparent)", color: "var(--green)", border: "1px solid color-mix(in srgb, var(--g3) 28%, transparent)" }}>{n.defectType}</span>
                 <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, color: sevColor(n.severity), background: `${sevColor(n.severity)}18`, border: `1px solid ${sevColor(n.severity)}44` }}>{n.severity}</span>
                 <span style={{ marginLeft: "auto", fontSize: 11, color: "var(--text-muted)" }}>{n.closedDate}</span>
               </div>
@@ -115,7 +115,7 @@ export default function LessonsLearnedPage() {
                 <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: ".05em", marginBottom: 4 }}>Defect</div>
                 <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6 }}>{n.description}</p>
               </div>
-              <div style={{ background: "rgba(15,155,15,.06)", border: "1px solid rgba(15,155,15,.15)", borderRadius: "var(--radius-sm)", padding: "10px 14px" }}>
+              <div style={{ background: "color-mix(in srgb, var(--g3) 6%, var(--inset))", border: "1px solid color-mix(in srgb, var(--g3) 18%, var(--line))", borderRadius: "var(--radius-sm)", padding: "10px 14px" }}>
                 <div style={{ fontSize: 11, color: "var(--green)", textTransform: "uppercase", letterSpacing: ".05em", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                   <BookOpen size={11} /> Lesson Learned
                 </div>

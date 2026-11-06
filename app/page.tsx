@@ -66,7 +66,7 @@ export default function DashboardPage() {
           { label: "In Progress",     value: stats.progress, icon: Clock,         color: "var(--status-progress)" },
           { label: "Overdue",         value: stats.overdue,  icon: AlertTriangle, color: "var(--status-overdue)" },
           { label: "Closed (Total)",  value: stats.closed,   icon: CheckCircle,   color: "var(--status-closed)" },
-          { label: "Critical Active", value: stats.critical, icon: AlertTriangle, color: "#ef4444" },
+          { label: "Critical Active", value: stats.critical, icon: AlertTriangle, color: "var(--t-danger)" },
           { label: "Lessons Logged",  value: stats.withLL,   icon: BookOpen,      color: "var(--green-bright)" },
         ].map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="stat-card">
@@ -93,7 +93,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 20 }}>
+      <div className="grid-2" style={{ gap: 18, marginBottom: 20 }}>
         {/* Recent NCRs */}
         <div className="card" style={{ padding: 0 }}>
           <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -137,7 +137,7 @@ export default function DashboardPage() {
               const days = daysUntil(eq.nextServiceDate)
               const urgent = days <= 30
               return (
-                <div key={eq.id} style={{ padding: "10px 16px", borderBottom: "1px solid rgba(15,155,15,.07)", display: "flex", alignItems: "center", gap: 10 }}>
+                <div key={eq.id} style={{ padding: "10px 16px", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 10 }}>
                   <Activity size={13} color={urgent ? "var(--status-overdue)" : "var(--green)"} style={{ flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 12, color: "var(--text-primary)", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{eq.name}</div>
